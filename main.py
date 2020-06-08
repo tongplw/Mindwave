@@ -1,19 +1,29 @@
+import math
 import time
 import mindwave
+import pandas as pd
 
 
 headset = mindwave.Headset('COM6')
+time.sleep(10)
 
 # print headers
-time.sleep(2)
 wave = headset.waves
-print(''.join(f'{k:<14}' for k in wave.keys()))
+keys = ['raw', 'attention', 'meditation'] + list(wave.keys())
+print(''.join(f'{k:<14}' for k in keys))
+
+values = []
 
 while True:
+
 	# print values
-    time.sleep(0.5)
     wave = headset.waves
-    print(''.join(f'{v:<14}' for v in wave.values()), end='\r')
+    values += [[headset.raw_value, headset.attention, headset.meditation] + list(wave.values())]
+    print(''.join(f'{v:<14}' for v in values[-1]), end='\r')
 
-
-    # print (f'Raw value: {headset.raw_value}, Attention: {headset.attention}, Meditation: {headset.meditation}')
+    if len(values) % 10 == 0:
+        df = pd.DataFrame(values)
+        df.to_csv('data.csv', mode='a', index=False, header=False)
+        values = []
+    
+    time.sleep(1)
