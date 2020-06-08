@@ -1,4 +1,3 @@
-import math
 import time
 import mindwave
 import pandas as pd
@@ -21,6 +20,7 @@ while True:
     values += [[headset.raw_value, headset.attention, headset.meditation] + list(wave.values())]
     print(''.join(f'{v:<14}' for v in values[-1]), end='\r')
 
+    # save data every 10 lines
     if len(values) % 10 == 0:
         df = pd.DataFrame(values)
         df.to_csv('data.csv', mode='a', index=False, header=False)
