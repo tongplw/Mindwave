@@ -21,9 +21,9 @@ while True:
     print(''.join(f'{v:<14}' for v in values[-1]), end='\r')
 
     # save data every 10 lines
-    # if len(values) % 10 == 0:
-    #     df = pd.DataFrame(values)
-    #     df.to_csv('data.csv', mode='a', index=False, header=False)
-    #     values = []
+    if len(values) % 10 == 0:
+        df = pd.DataFrame(values)
+        df.to_csv('data.csv', mode='a', index=False, header=False)
+        values = []
     
     time.sleep(1)
