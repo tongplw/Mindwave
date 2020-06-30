@@ -22,12 +22,10 @@ while True:
 	# print values
     wave = headset.waves
     values += [[datetime.now()] + [headset.raw_value, headset.attention, headset.meditation] + list(wave.values())]
-    # print(''.join(f'{v:<14}' for v in values[-1]), end='\r')
+    print(''.join(f'{v:<14}' for v in values[-1]), end='\r')
     
-    # save data every 10 lines
-    if len(values) % 1024 == 0:
-        df = pd.DataFrame(values)
-        df.to_csv('raw.csv', mode='a', index=False, header=False)
-        values = []
-    
-    # time.sleep(1/256)
+    # # save data every 10 lines
+    # if len(values) % 1024 == 0:
+    #     df = pd.DataFrame(values)
+    #     df.to_csv('raw.csv', mode='a', index=False, header=False)
+    #     values = []
